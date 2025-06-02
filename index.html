@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Letter for Babii</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff0f6;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .hearts-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 9999;
+    }
+    .heart {
+      position: absolute;
+      font-size: 36px;
+      color: #e63946;
+      text-shadow: 0 0 8px rgba(230, 57, 70, 0.8);
+      user-select: none;
+      animation-name: floatUp;
+      animation-timing-function: ease-out;
+      animation-iteration-count: 1;
+      opacity: 1;
+      will-change: transform, opacity;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+    .letter-box {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 420px;
+      width: 90vw;
+      max-height: 75vh;       /* Limit height to 75% viewport height */
+      overflow-y: auto;       /* Enable vertical scroll if content overflows */
+      background: rgba(255, 230, 234, 0.9);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(230, 57, 70, 0.4);
+      text-align: center;
+      z-index: 10;
+      border: 3px solid #e63946;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .letter p {
+      font-size: 1.3rem;
+      line-height: 1.85;
+      color: #3a3a3a;
+      white-space: pre-wrap;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* Optional: style the scrollbar for better UX */
+    .letter-box::-webkit-scrollbar {
+      width: 8px;
+    }
+    .letter-box::-webkit-scrollbar-thumb {
+      background-color: #e63946;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-container" id="hearts-container"></div>
+
+  <div class="letter-box" id="letter-box">
+    <div class="letter">
+      <p>
+        Congrats, babii! 🎓✨<br><br>
+        Grabe, you did it talaga! Finally, graduate ka na and I’m soooo proud of you! 🥹 Lahat ng pagod, puyat, stress, and sacrifices lahat ng yun, worth it na ngayon. You earned this moment.<br><br>
+        Alam ko na hindi naging madali ‘tong journey mo. There were times na gusto mo na mag-give up, pero look at you now — you made it. I know how hard you worked and kahit super challenging, lumaban ka pa rin.<br><br>
+        This is only the beginning, ha? Madami ka pang ma-aachieve in life and I just know you’re meant for big things. I’ll always be here cheering you on, supporting you, hype buddy mo forever.<br><br>
+        Thank you for being such a big inspiration hindi lang sa’kin, kundi sa lahat ng nakapaligid sa’yo. Sobrang nakaka-proud ka babii. You’ve grown so much and I hope you take time to enjoy this win. Deserve na deserve mo ‘to, as in sobra!<br><br>
+        I love you so muchhh babii and again CONGRATS!! 🎉🎉
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById("hearts-container");
+    const letterBox = document.getElementById("letter-box");
+
+    function getLetterBoxBounds() {
+      return letterBox.getBoundingClientRect();
+    }
+
+    function createHeart() {
+      const heart = document.createElement("span");
+      heart.classList.add("heart");
+      heart.textContent = '❤️';
+
+      const letterBounds = getLetterBoxBounds();
+
+      // Pick random left side outside letter box horizontally
+      let left;
+      const leftSideWidth = letterBounds.left;
+      const rightSideWidth = window.innerWidth - letterBounds.right;
+      const side = Math.random() < 0.5 ? 'left' : 'right';
+
+      if (side === 'left' && leftSideWidth > 50) {
+        left = Math.random() * leftSideWidth;
+      } else if (rightSideWidth > 50) {
+        left = letterBounds.right + Math.random() * rightSideWidth;
+      } else {
+        left = Math.random() * window.innerWidth;
+      }
+
+      // Avoid hearts too close vertically to letter box
+      const minTop = 0;
+      const maxTop = window.innerHeight;
+
+      // Random top but avoid hearts appearing on letter box area
+      let top;
+      const letterTop = letterBounds.top;
+      const letterBottom = letterBounds.bottom;
+
+      // Generate top avoiding letter box vertical space
+      do {
+        top = Math.random() * maxTop;
+      } while (top > letterTop - 30 && top < letterBottom + 30);
+
+      heart.style.left = left + "px";
+      heart.style.top = top + "px";
+
+      // Bigger size (30-50px)
+      const size = 30 + Math.random() * 20;
+      heart.style.fontSize = size + "px";
+
+      // Animation duration 4-8s
+      const duration = 4000 + Math.random() * 4000;
+      heart.style.animationDuration = duration + "ms";
+
+      // Random delay
+      heart.style.animationDelay = Math.random() * duration + "ms";
+
+      container.appendChild(heart);
+
+      setTimeout(() => heart.remove(), duration + 1000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
