@@ -9,7 +9,7 @@
       margin: 0; padding: 0;
       height: 100%; width: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #fff0f6;
+      background: linear-gradient(135deg, #ffc0cb, #ffe4e1); /* Pink gradient */
       overflow-x: hidden;
       position: relative;
     }
@@ -49,8 +49,8 @@
       transform: translate(-50%, -50%);
       max-width: 420px;
       width: 90vw;
-      max-height: 75vh;       /* Limit height to 75% viewport height */
-      overflow-y: auto;       /* Enable vertical scroll if content overflows */
+      max-height: 75vh;
+      overflow-y: auto;
       background: rgba(255, 230, 234, 0.9);
       padding: 30px 25px;
       border-radius: 20px;
@@ -69,8 +69,6 @@
       margin: 0;
       font-weight: 500;
     }
-
-    /* Optional: style the scrollbar for better UX */
     .letter-box::-webkit-scrollbar {
       width: 8px;
     }
@@ -86,9 +84,9 @@
   <div class="letter-box" id="letter-box">
     <div class="letter">
       <p>
-        Congrats, babii! 🎓✨<br><br>
+        Congrats Babii! 🎓✨<br><br>
         Grabe, you did it talaga! Finally, graduate ka na and I’m soooo proud of you! 🥹 Lahat ng pagod, puyat, stress, and sacrifices lahat ng yun, worth it na ngayon. You earned this moment.<br><br>
-        Alam ko na hindi naging madali ‘tong journey mo. There were times na gusto mo na mag-give up, pero look at you now — you made it. I know how hard you worked and kahit super challenging, lumaban ka pa rin.<br><br>
+        Alam ko na hindi naging madali ‘tong journey mo. There were times na gusto mo na mag-give up, pero look at you now you made it. I know how hard you worked and kahit super challenging, lumaban ka pa rin.<br><br>
         This is only the beginning, ha? Madami ka pang ma-aachieve in life and I just know you’re meant for big things. I’ll always be here cheering you on, supporting you, hype buddy mo forever.<br><br>
         Thank you for being such a big inspiration hindi lang sa’kin, kundi sa lahat ng nakapaligid sa’yo. Sobrang nakaka-proud ka babii. You’ve grown so much and I hope you take time to enjoy this win. Deserve na deserve mo ‘to, as in sobra!<br><br>
         I love you so muchhh babii and again CONGRATS!! 🎉🎉
@@ -111,7 +109,6 @@
 
       const letterBounds = getLetterBoxBounds();
 
-      // Pick random left side outside letter box horizontally
       let left;
       const leftSideWidth = letterBounds.left;
       const rightSideWidth = window.innerWidth - letterBounds.right;
@@ -125,16 +122,13 @@
         left = Math.random() * window.innerWidth;
       }
 
-      // Avoid hearts too close vertically to letter box
       const minTop = 0;
       const maxTop = window.innerHeight;
 
-      // Random top but avoid hearts appearing on letter box area
       let top;
       const letterTop = letterBounds.top;
       const letterBottom = letterBounds.bottom;
 
-      // Generate top avoiding letter box vertical space
       do {
         top = Math.random() * maxTop;
       } while (top > letterTop - 30 && top < letterBottom + 30);
@@ -142,15 +136,12 @@
       heart.style.left = left + "px";
       heart.style.top = top + "px";
 
-      // Bigger size (30-50px)
       const size = 30 + Math.random() * 20;
       heart.style.fontSize = size + "px";
 
-      // Animation duration 4-8s
       const duration = 4000 + Math.random() * 4000;
       heart.style.animationDuration = duration + "ms";
 
-      // Random delay
       heart.style.animationDelay = Math.random() * duration + "ms";
 
       container.appendChild(heart);
